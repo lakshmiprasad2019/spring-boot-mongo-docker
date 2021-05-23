@@ -30,9 +30,10 @@ spec:
         env:
         - name: MONGO_DB_HOSTNAME
           value: mongo
-        envFrom:
-        - configMapRef:
-              name: springapp-configmap
+        - name: DB_user
+          value: springapp
+        - name: DB_Password
+          value: mongodb@123
 ---
 # Node Port Service For SpringApp
 apiVersion: v1
@@ -64,9 +65,11 @@ spec:
       containers:
       - image: mongo
         name: mongo
-        envFrom:
-        - configMapRef:
-              name: springapp-configmap
+        env:
+        - name: DB_user
+          value: springapp
+        - name: DB_Password
+          value: mongodb@123
         ports:
         - containerPort: 27017
         volumeMounts:
