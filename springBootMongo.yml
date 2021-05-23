@@ -30,9 +30,9 @@ spec:
         env:
         - name: MONGO_DB_HOSTNAME
           value: mongo
-        - name: DB_user
+        - name: MONGO_DB_USERNAME
           value: springapp
-        - name: DB_Password
+        - name: MONGO_DB_PASSWORD
           value: mongodb@123
 ---
 # Node Port Service For SpringApp
@@ -66,9 +66,9 @@ spec:
       - image: mongo
         name: mongo
         env:
-        - name: DB_user
+        - name: MONGO_DB_USERNAME
           value: springapp
-        - name: DB_Password
+        - name: MONGO_DB_PASSWORD
           value: mongodb@123
         ports:
         - containerPort: 27017
