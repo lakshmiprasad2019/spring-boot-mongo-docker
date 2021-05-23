@@ -5,8 +5,8 @@ metadata:
   name: springapp-configmap
 data:
   # Configuration values can be set as key-value properties
-  username: springapp
-  password: mongodb@123
+  MONGO_DB_USERNAME: springapp
+  MONGO_DB_PASSWORD: mongodb@123
 ---
 # Replication Controller for springapp
 apiVersion: v1
@@ -23,7 +23,7 @@ spec:
         app: springboot
     spec:
       containers:
-      - image: jaggarapup/spring-boot-mongo
+      - image: dockerhandson/spring-boot-mongo
         name: springboot
         ports:
         - containerPort: 8080  
@@ -31,9 +31,15 @@ spec:
         - name: MONGO_DB_HOSTNAME
           value: mongo
         - name: MONGO_DB_USERNAME
-          value: springapp
+          valueFrom:
+            configMapKeyRef:
+              name: springapp-configmap
+              key: username 
         - name: MONGO_DB_PASSWORD
-          value: mongodb@123
+          valueFrom:
+            configMapKeyRef:
+              name: springapp-configmap
+              key: password       
 ---
 # Node Port Service For SpringApp
 apiVersion: v1
@@ -67,9 +73,15 @@ spec:
         name: mongo
         env:
         - name: MONGO_DB_USERNAME
-          value: springapp
+          valueFrom:
+            configMapKeyRef:
+              name: springapp-configmap
+              key: username 
         - name: MONGO_DB_PASSWORD
-          value: mongodb@123
+          valueFrom:
+            configMapKeyRef:
+              name: springapp-configmap
+              key: password 
         ports:
         - containerPort: 27017
         volumeMounts:
