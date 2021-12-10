@@ -3,9 +3,9 @@ spring:
     mongodb:
       host: mongo
       port: 27017
-      username: springapp
-      password: mongodb@123
-      database: test
+      username: ${MONGO_INITDB_ROOT_USERNAME}
+      password: ${MONGO_INITDB_ROOT_PASSWORD}
+      database: users
       authentication-database: admin
 
 server:
